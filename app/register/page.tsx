@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { supabase } from '@/lib/supabase';
 import { useRouter } from 'next/navigation';
 
@@ -20,7 +20,7 @@ export default function RegisterPage() {
       email,
       password,
       options: {
-        data: { full_name: fullName, role: role },
+        data: { full_name: fullName, role },
       },
     });
 
@@ -30,7 +30,6 @@ export default function RegisterPage() {
     }
 
     if (data.user) {
-      // Guardar perfil en la tabla 'profiles'
       await supabase.from('profiles').insert([
         { id: data.user.id, email, full_name: fullName, role },
       ]);
