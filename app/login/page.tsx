@@ -1,59 +1,66 @@
 'use client';
 
-import React, { useState } from 'react';
-import { supabase } from '@/lib/supabase';
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { supabase } from '@/lib/supabase';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [errorMsg, setErrorMsg] = useState('');
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError('');
+    setLoading(true);
+    setErrorMsg('');
 
-    const { error: loginError } = await supabase.auth.signInWithPassword({
+    const { error } = await supabase.auth.signInWithPassword({
       email,
       password,
     });
 
-    if (loginError) {
-      setError(loginError.message);
-      return;
+    if (error) {
+      setErrorMsg('Credenciales incorrectas o usuario no registrado.');
+    } else {
+      router.push('/dashboard');
+      router.refresh();
     }
-
-    router.push('/dashboard');
+    setLoading(false);
   };
 
   return (
-    <div className="max-w-md mx-auto bg-gray-800 p-6 rounded-lg border border-gray-700 mt-10">
-      <h2 className="text-2xl font-bold mb-4 text-yellow-500 text-center">Iniciar Sesión</h2>
-      {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
-      <form onSubmit={handleLogin} className="flex flex-col gap-4">
+    <div className="max-w-md mx-auto bg-gray-800 p-8 rounded-2xl border border-gray-700 shadow-xl space-y-6">
+      <h1 className="text-2xl font-bold text-yellow-500">Iniciar Sesión</h1>
+      {errorMsg && <p className="text-red-400 text-sm">{errorMsg}</p>}
+      <form onSubmit={handleLogin} className="space-y-4">
         <div>
-          <label className="block text-sm font-medium mb-1">Correo Electrónico</label>
+          <label className="block text-sm text-gray-300">Correo Electrónico</label>
           <input
             type="email"
             required
-            className="w-full bg-gray-900 border border-gray-700 rounded p-2 text-white"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            className="w-full bg-gray-900 border border-gray-700 rounded-lg p-2.5 text-white"
           />
         </div>
         <div>
-          <label className="block text-sm font-medium mb-1">Contraseña</label>
+          <label className="block text-sm text-gray-300">Contraseña</label>
           <input
             type="password"
             required
-            className="w-full bg-gray-900 border border-gray-700 rounded p-2 text-white"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            className="w-full bg-gray-900 border border-gray-700 rounded-lg p-2.5 text-white"
           />
         </div>
-        <button type="submit" className="bg-yellow-500 text-black font-bold py-2 rounded hover:bg-yellow-400 transition">
-          Ingresar
+        <button
+          type="submit"
+          disabled={loading}
+          className="w-full bg-yellow-500 text-black font-bold py-3 rounded-lg hover:bg-yellow-400 transition"
+        >
+          {loading ? 'Validando...' : 'Ingresar'}
         </button>
       </form>
     </div>
