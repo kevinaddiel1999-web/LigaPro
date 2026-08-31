@@ -1,5 +1,5 @@
 'use client';
-
+import PartidosApi from '@/components/PartidosApi';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { supabase } from '@/lib/supabase';
@@ -182,6 +182,7 @@ const handleEdit = async (id: string, currentTitulo: string) => {
     </div>
   </div>
 </div>
+<PartidosApi />
     </div>
   );
 }
