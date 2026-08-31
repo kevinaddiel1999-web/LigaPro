@@ -1,40 +1,54 @@
-# ⚽ LigaPro Analytics - Plataforma de Estadísticas y Análisis
+# ⚽ LigaPro Analytics
 
-Plataforma web interactiva para el seguimiento, análisis táctico y estadísticas de la **LigaPro de Ecuador**. Permite visualizar tablas de posiciones, rendimiento de equipos, análisis de partidos y gestión centralizada con persistencia de datos.
-
----
-
-## 🚀 Enlaces del Proyecto
-
-* **Sitio Web Desplegado (Vercel):** [https://liga-pro-omega.vercel.app](https://liga-pro-omega.vercel.app)
-* **Repositorio en GitHub:** [https://github.com/kevinaddiel1999-web/LigaPro](https://github.com/kevinaddiel1999-web/LigaPro)
+Plataforma web interactiva para el análisis táctico, pronósticos y seguimiento de la LigaPro ecuatoriana de fútbol.
 
 ---
 
-## 🛠️ Tecnologías Utilizadas
+## 🚀 Tecnologías Utilizadas
 
-* **Frontend Framework:** [Next.js 15](https://nextjs.org/) (App Router)
-* **Lenguaje:** TypeScript / JavaScript (ES6+)
-* **Estilos:** [Tailwind CSS](https://tailwindcss.com/)
-* **Base de Datos & Backend:** [Supabase](https://supabase.com/) (PostgreSQL)
-* **Despliegue & CI/CD:** [Vercel](https://vercel.com/)
-
----
-
-## 💻 Características Principales
-
-1. **Autenticación e Identidad:** Registro e inicio de sesión de usuarios conectados a Supabase Auth.
-2. **Dashboard de Análisis:** Panel de control interactivo para explorar métricas y estadísticas futbolísticas.
-3. **Módulo Táctico (`/analisis/[id]`):** Rutas dinámicas para la visualización detallada de partidos y métricas individuales.
-4. **Diseño Responsivo:** Adaptado completamente para dispositivos móviles, tabletas y computadoras de escritorio mediante Tailwind CSS.
+* **Framework:** Next.js 15 (App Router)
+* **Lenguaje:** TypeScript
+* **Estilos:** Tailwind CSS
+* **Base de Datos & Auth:** Supabase (PostgreSQL)
+* **API Externa:** TheSportsDB API
+* **Despliegue:** Vercel
 
 ---
 
-## ⚙️ Instalación Local
+## 🗄️ Modelo de Datos (Supabase Schema)
 
-Si deseas ejecutar este proyecto de forma local:
+### Tabla: `articulos_partidos`
+Representa los análisis tácticos y pronósticos publicados por los usuarios analistas.
 
-1. **Clonar el repositorio:**
+| Campo | Tipo | Descripción |
+| :--- | :--- | :--- |
+| `id` | `uuid` (PK) | Identificador único del análisis |
+| `created_at` | `timestamp` | Fecha y hora de creación |
+| `titulo` | `text` | Título de la publicación |
+| `partido_info` | `text` | Nombre de los equipos o detalles del partido |
+| `contenido` | `text` | Análisis táctico detallado |
+| `pronostico` | `text` | Resultado predicho o recomendación |
+| `user_id` | `uuid` (FK) | ID del usuario autor (Relación con `auth.users`) |
+
+---
+
+## 🔑 Credenciales de Prueba para Evaluación
+
+Para probar los roles y permisos del sistema dentro de la plataforma:
+
+* **Rol Analista (Acceso total al Dashboard / Publicación / CRUD):**
+  * **Correo:** `analista@ligapro.com`
+  * **Contraseña:** `Analista123!`
+
+* **Rol Aficionado (Acceso de solo lectura):**
+  * **Correo:** `aficionado@ligapro.com`
+  * **Contraseña:** `Aficionado123!`
+
+---
+
+## ⚙️ Instalación y Configuración Local
+
+1. Clonar el repositorio:
    ```bash
    git clone [https://github.com/kevinaddiel1999-web/LigaPro.git](https://github.com/kevinaddiel1999-web/LigaPro.git)
    cd LigaPro
