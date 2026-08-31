@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 export const metadata = {
   title: 'LigaPro - Análisis y Pronósticos',
-  description: 'Estadísticas, análisis tácticos y resultados de la LigaPro Ecuador',
+  description: 'Estadísticas, análisis tácticos y resultados para pronósticos de la LigaPro Ecuador',
 };
 
 export default function RootLayout({
