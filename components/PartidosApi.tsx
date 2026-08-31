@@ -34,7 +34,7 @@ export default function PartidosApi() {
       </h2>
 
       {loading ? (
-        <p className="text-gray-400 text-sm">Cargando datos desde la API...</p>
+        <p className="text-gray-400 text-sm">Obteniendo datos en tiempo real...</p>
       ) : partidos.length > 0 ? (
         <div className="space-y-3">
           {partidos.map((item) => (
