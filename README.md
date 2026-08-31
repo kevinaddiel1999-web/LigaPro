@@ -56,3 +56,7 @@ Para probar los roles y permisos del sistema dentro de la plataforma:
    ## 🛠️ Estado del Proyecto
 * **Build Status:** Pasando (Vercel Production Deployment)
 * **API Status:** Operativa (TheSportsDB API Integration)
+
+```bash
+git clone [https://github.com/kevinaddiel1999-web/LigaPro.git](https://github.com/kevinaddiel1999-web/LigaPro.git)
+cd LigaPro
