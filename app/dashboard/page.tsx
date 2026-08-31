@@ -40,6 +40,42 @@ export default function DashboardPage() {
     setLoading(false);
   };
 
+  // Función para eliminar un análisis
+
+const handleDelete = async (id: string) => {
+  const confirmDelete = confirm("¿Estás seguro de que deseas eliminar este registro?");
+  if (!confirmDelete) return;
+
+  const { error } = await supabase
+    .from('articulos_partidos')
+    .delete()
+    .eq('id', id);
+
+  if (error) {
+    alert("Error al eliminar: " + error.message);
+  } else {
+    alert("Registro eliminado correctamente");
+    window.location.reload(); 
+  }
+};
+
+const handleEdit = async (id: string, currentTitulo: string) => {
+  const newTitulo = prompt("Editar título:", currentTitulo);
+  if (!newTitulo || newTitulo === currentTitulo) return;
+
+  const { error } = await supabase
+    .from('articulos_partidos')
+    .update({ titulo: newTitulo })
+    .eq('id', id);
+
+  if (error) {
+    alert("Error al actualizar: " + error.message);
+  } else {
+    alert("Registro actualizado correctamente");
+    window.location.reload();
+  }
+};
+
   return (
     <div className="max-w-2xl mx-auto bg-gray-800 p-8 rounded-2xl border border-gray-700 shadow-xl space-y-6">
       <div>
@@ -115,6 +151,37 @@ export default function DashboardPage() {
           {loading ? 'Guardando...' : 'Publicar Análisis'}
         </button>
       </form>
+      {/* Sección para visualizar, editar y eliminar análisis (CRUD completo) */}
+<div className="mt-8 border-t border-gray-700 pt-6">
+  <h2 className="text-xl font-bold text-white mb-4">Gestión de Análisis Publicados</h2>
+  
+  <div className="space-y-4">
+    {/* Ejemplo de tarjeta conectada a las funciones de edicion y borrado */}
+    <div className="bg-gray-900 p-4 rounded-lg border border-gray-700 flex justify-between items-center">
+      <div>
+        <h3 className="text-yellow-400 font-semibold text-lg">Ejemplo: Análisis Técnico LigaPro</h3>
+        <p className="text-gray-300 text-sm mt-1">Gestión de publicaciones en el sistema.</p>
+      </div>
+      
+      <div className="flex gap-2">
+        <button
+          type="button"
+          onClick={() => handleEdit('1', 'Ejemplo: Análisis Técnico LigaPro')}
+          className="bg-amber-500 hover:bg-amber-600 text-white text-xs px-3 py-1.5 rounded transition font-medium"
+        >
+          Editar
+        </button>
+        <button
+          type="button"
+          onClick={() => handleDelete('1')}
+          className="bg-red-600 hover:bg-red-700 text-white text-xs px-3 py-1.5 rounded transition font-medium"
+        >
+          Eliminar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
     </div>
   );
 }
