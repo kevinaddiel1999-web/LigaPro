@@ -1,3 +1,4 @@
+// Middleware para protección de rutas del dashboard
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
